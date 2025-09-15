@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Postocola</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #A41F28, #D82F2F);
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .container-section {
+            padding: 4rem 1rem;
+        }
+        .text-postocola-red {
+            color: #A41F28;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="gradient-bg text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <!-- Logo real de Postocola -->
+            <img src="https://storage.googleapis.com/gcn-public/PostoCola%20Logo%20PNG.jpg" alt="Logo de Postocola" class="mx-auto mb-4 w-40 h-auto rounded-full shadow-lg">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight">¡Bienvenido a Postocola!</h1>
+            <p class="mt-2 text-lg md:text-xl font-light">Te unes a un equipo de campeones.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Us Section -->
+        <section class="container-section bg-white">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-semibold text-gray-900 mb-4">Nuestra Historia</h2>
+                    <p class="text-gray-600 mb-6">
+                        Postocola S.A. fue fundada en agosto de 1969 por <strong>JULIO MARIO ARDILA</strong> y <strong>CARLOS SANTODOMINGO</strong>. Somos una empresa líder dedicada a la fabricación y comercialización de bebidas dulces e hidratantes. Hemos superado grandes desafíos, como la crisis financiera de 1993, y renacimos gracias a una inyección de capital de la empresa peruana INCAKOLA. Hoy, nos enorgullece mantener el 52% de nuestro capital nacional.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gray-100 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Líderes del Mercado</h3>
+                            <p class="text-gray-700">Por cada 10 bebidas que se venden en Colombia, ¡casi 4 son nuestras! Esto nos convierte en líderes del mercado con una participación cercana al 40%.</p>
+                        </div>
+                        <div class="bg-gray-100 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Premio Nacional de Calidad</h3>
+                            <p class="text-gray-700">Recibimos el Premio Nacional de la Calidad en 2012 y 2022 en la categoría de grandes empresas, un testimonio de nuestro compromiso con la excelencia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company Structure Section -->
+        <section class="container-section bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-semibold text-gray-900 mb-4">Nuestra Estructura</h2>
+                    <p class="text-gray-600 mb-6">
+                        Postocola cuenta con una estructura sólida para garantizar la eficiencia en nuestras operaciones.
+                    </p>
+                    <ul class="list-disc list-inside text-left text-gray-700 max-w-xl mx-auto space-y-2">
+                        <li><strong>Presidente:</strong> 1</li>
+                        <li><strong>Vicepresidentes:</strong> 5</li>
+                        <li><strong>Gerentes (Área o Regionales):</strong> 15 (Reportan a Vicepresidentes)</li>
+                        <li><strong>Directores de División:</strong> 24 (Reportan a Gerentes)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits and Culture Section -->
+        <section class="container-section bg-white">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-semibold text-gray-900 mb-4">Beneficios y Cultura</h2>
+                    <p class="text-gray-600 mb-6">
+                        Tu bienestar y crecimiento son nuestra prioridad. Estamos comprometidos con un ambiente de trabajo justo y gratificante.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-red-50 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Salarios Competitivos</h3>
+                            <p class="text-gray-700">Nuestros niveles de remuneración son superiores en un 10% en el 80% de los cargos respecto de la mediana del mercado. ¡Valoramos tu talento!</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Relación con SINTRAPOSTOCOLA</h3>
+                            <p class="text-gray-700">Tenemos una relación sólida y respetuosa con nuestro sindicato. Todos los empleados reciben los beneficios de la Convención Colectiva, sin importar su afiliación.</p>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Nuestra Gente</h3>
+                        <p class="text-gray-600">
+                            Contamos con <strong>4500 empleados</strong> a nivel nacional, distribuidos en 7 sedes regionales en Bogotá, Cali, Medellín, Barranquilla, y Bucaramanga.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact/Resources Section -->
+        <section class="container-section gradient-bg text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-semibold mb-4">Recursos de Onboarding</h2>
+                <p class="text-lg font-light mb-6">
+                    Esta página es un recurso central para tu proceso de inducción. El Manual de Onboarding General y Específico contiene toda la información detallada que necesitas para comenzar.
+                </p>
+                <!-- This could be a link to the onboarding manual file, or just a placeholder for now -->
+                <a href="#" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-gray-100 hover:scale-105">
+                    Descargar Manual de Onboarding
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-4">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>&copy; 2025 Postocola S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
