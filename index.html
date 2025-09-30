@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postocola S.A. | Onboarding y Reto de la Fábrica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos generales de la página (Postocola Brand) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1a202c; /* Color de texto base */
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #A41F28, #D82F2F);
+        }
+        .container-section {
+            padding: 4rem 1rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-primary {
+            background-color: #e53e3e;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #c53030;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .text-postocola-red {
+            color: #A41F28;
+        }
+
+        /* Estilos específicos para el juego (Dark Theme) */
+        :root {
+            --posto-red: #d12028;
+            --posto-brown: #341d1d;
+            --posto-cream: #f5e7dc;
+            --posto-dark-bg: #1e1111;
+        }
+        .game-section-bg {
+            background: linear-gradient(135deg, var(--posto-brown) 0%, var(--posto-dark-bg) 100%);
+            color: var(--posto-cream);
+        }
+        .game-container {
+            max-width: 900px;
+            width: 90%;
+            background: rgba(30, 17, 17, 0.9);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .game-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--posto-cream);
+            margin-bottom: 0.5rem;
+        }
+        .info-box {
+            background-color: rgba(52, 29, 29, 0.8);
+            color: var(--posto-cream);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            min-height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            text-align: center;
+            border: 2px solid var(--posto-red);
+            width: 100%;
+        }
+        .game-area-flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+        .fact-card, .answer-card {
+            background-color: rgba(245, 231, 220, 0.1);
+            color: var(--posto-cream);
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--posto-red);
+            border-radius: 0.5rem;
+            width: 250px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+        .fact-card {
+            cursor: grab;
+        }
+        .fact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .fact-card:active {
+            cursor: grabbing;
+        }
+        /* CLASES DE TEMPORIZADOR ELIMINADAS */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background-color: var(--posto-brown);
+            margin: auto;
+            padding: 2.5rem;
+            border: 2px solid var(--posto-red);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 1rem;
+            text-align: center;
+            color: var(--posto-cream);
+        }
+        .start-button {
+            background: var(--posto-red);
+            color: var(--posto-cream);
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px #8f171d;
+        }
+        .start-button:hover {
+            background: #a81c20;
+            transform: translateY(-2px);
+            box-shadow: 0 6px #8f171d;
+        }
+        .start-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px #8f171d;
+        }
+        .leaderboard-container {
+            margin-top: 2rem;
+            width: 100%;
+            background-color: rgba(52, 29, 29, 0.8);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 2px solid var(--posto-red);
+        }
+        .leaderboard-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .leaderboard-list {
+            list-style: none;
+            padding: 0;
+        }
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(245, 231, 220, 0.2);
+            font-size: 0.9rem;
+        }
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="gradient-bg text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <!-- Logo de Postocola (Placeholder) -->
+            <img src="https://placehold.co/160x160/D82F2F/FFFFFF?text=PostoCola" alt="Logo de Postocola" class="mx-auto mb-4 w-40 h-auto rounded-full shadow-lg">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight">¡Bienvenido a Postocola!</h1>
+            <p class="mt-2 text-lg md:text-xl font-light">Te unes a un equipo de campeones.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Us Section -->
+        <section class="container-section bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-semibold text-gray-900 mb-4">Nuestra Historia</h2>
+                    <p class="text-gray-600 mb-6">
+                        Postocola S.A. fue fundada en agosto de 1969 por <strong>JULIO MARIO ARDILA</strong> y <strong>CARLOS SANTODOMINGO</strong>. Somos una empresa líder dedicada a la fabricación y comercialización de bebidas dulces e hidratantes. Hemos superado grandes desafíos, como la crisis financiera de 1993, y renacimos gracias a una inyección de capital de la empresa peruana INCAKOLA. Hoy, nos enorgullece mantener el 52% de nuestro capital nacional.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gray-100 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Líderes del Mercado</h3>
+                            <p class="text-gray-700">Por cada 10 bebidas que se venden en Colombia, ¡casi 4 son nuestras! Esto nos convierte en líderes del mercado con una participación cercana al 40%.</p>
+                        </div>
+                        <div class="bg-gray-100 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Premio Nacional de Calidad</h3>
+                            <p class="text-gray-700">Recibimos el Premio Nacional de la Calidad en 2012 y 2022 en la categoría de grandes empresas, un testimonio de nuestro compromiso con la excelencia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company Structure Section -->
+        <section class="container-section bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-semibold text-gray-900 mb-4">Nuestra Estructura</h2>
+                    <p class="text-gray-600 mb-6">
+                        Postocola cuenta con una estructura sólida para garantizar la eficiencia en nuestras operaciones.
+                    </p>
+                    <ul class="list-disc list-inside text-left text-gray-700 max-w-xl mx-auto space-y-2">
+                        <li><strong>Presidente:</strong> 1</li>
+                        <li><strong>Vicepresidentes:</strong> 5</li>
+                        <li><strong>Gerentes (Área o Regionales):</strong> 15 (Reportan a Vicepresidentes)</li>
+                        <li><strong>Directores de División:</strong> 24 (Reportan a Gerentes)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits and Culture Section -->
+        <section class="container-section bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-semibold text-gray-900 mb-4">Beneficios y Cultura</h2>
+                    <p class="text-gray-600 mb-6">
+                        Tu bienestar y crecimiento son nuestra prioridad. Estamos comprometidos con un ambiente de trabajo justo y gratificante.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-red-50 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Salarios Competitivos</h3>
+                            <p class="text-gray-700">Nuestros niveles de remuneración son superiores en un 10% en el 80% de los cargos respecto de la mediana del mercado. ¡Valoramos tu talento!</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg card">
+                            <h3 class="text-xl font-bold text-postocola-red mb-2">Relación con SINTRAPOSTOCOLA</h3>
+                            <p class="text-gray-700">Tenemos una relación sólida y respetuosa con nuestro sindicato. Todos los empleados reciben los beneficios de la Convención Colectiva, sin importar su afiliación. (Sindicato fundado en 1988)</p>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Nuestra Gente</h3>
+                        <p class="text-gray-600">
+                            Contamos con <strong>4500 empleados</strong> a nivel nacional, distribuidos en 7 sedes regionales en Bogotá, Cali, Medellín, Barranquilla, y Bucaramanga.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recursos de Onboarding Section -->
+        <section class="container-section gradient-bg text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-semibold mb-4">Recursos de Onboarding</h2>
+                <p class="text-lg font-light mb-6">
+                    Esta página es un recurso central para tu proceso de inducción. El Manual de Onboarding General y Específico contiene toda la información detallada que necesitas para comenzar.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                    <!-- Botón para descargar el manual -->
+                    <a href="POSTOCOLA.docx" download="Manual_Onboarding_Postocola.docx" class="inline-block btn-primary">
+                        Descargar Manual de Onboarding
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Video Section -->
+        <section class="container-section bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-2xl font-semibold text-gray-700">Conoce un poco más de nosotros</h2>
+                    <p class="mt-4 text-gray-500">Mira este video para tener una visión más profunda de nuestro equipo y lo que nos hace líderes.</p>
+                    <div class="mt-6 video-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/Qw8WZfeqkv0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Section (El Reto de la Fábrica) - Usando los estilos oscuros del juego -->
+        <section class="container-section game-section-bg">
+            <div class="container mx-auto px-6">
+                <div class="game-container">
+                    <div class="game-header">
+                        <img src="https://placehold.co/100x100/d12028/f5e7dc?text=PostoCola" alt="PostoCola Logo" class="logo">
+                        <h1 class="game-title">PostoCola: El Reto de la Fábrica</h1>
+                        <p class="game-subtitle">Pon a prueba tu memoria arrastrando el dato con la respuesta correcta</p>
+                    </div>
+                    <div class="info-box" id="infoBox">Arrastra los datos a su respuesta correspondiente.</div>
+                    
+                    <!-- ELIMINADO: <div class="timer" id="gameTimer">Tiempo: 00:00</div> -->
+                    
+                    <div class="game-area-flex">
+                        <div id="factsContainer" class="game-area-flex"></div>
+                        <div id="answersContainer" class="game-area-flex"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal del Juego -->
+        <div id="endModal" class="modal">
+            <div class="modal-content">
+                <h2 class="text-3xl font-bold mb-4">¡Misión Completada!</h2>
+                <!-- ELIMINADO: <p class="text-xl mb-2">¡Has unido todos los datos correctamente!</p> -->
+                <p class="text-2xl font-bold mb-4" id="finalTime">¡Felicidades, has completado el Reto de la Fábrica!</p>
+                <div class="flex flex-col items-center mt-4">
+                    <button class="start-button mt-6" id="saveScoreBtn">Registrar mi finalización</button>
+                    <button class="start-button mt-4" onclick="window.location.reload()">Jugar de nuevo</button>
+                </div>
+                <div class="leaderboard-container">
+                    <h3 class="leaderboard-title">Tabla de finalistas (Más recientes primero)</h3>
+                    <ul id="leaderboardList" class="leaderboard-list"></ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-4">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>&copy; 2025 Postocola S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase and Game Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, query, getDocs, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        setLogLevel('Debug');
+        
+        // Configuración de Firebase - Variables Globales (MANDATORY)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : '';
+        
+        let db, auth, userId;
+        let isAuthReady = false;
+
+        // Elementos del DOM para el juego
+        const infoBox = document.getElementById('infoBox');
+        // ELIMINADO: const gameTimer = document.getElementById('gameTimer');
+        const endModal = document.getElementById('endModal');
+        const finalTime = document.getElementById('finalTime');
+        const saveScoreBtn = document.getElementById('saveScoreBtn');
+        const leaderboardList = document.getElementById('leaderboardList');
+        const factsContainer = document.getElementById('factsContainer');
+        const answersContainer = document.getElementById('answersContainer');
+
+        let gameActive = false;
+        // ELIMINADO: let startTime;
+        // ELIMINADO: let timerInterval;
+        let factsMatched = 0;
+        
+        // Datos de Trivia basados en la sección de Onboarding 
+        const trivia = [
+            { question: "Año de fundación", answer: "1969" },
+            { question: "Número de sedes regionales", answer: "7" },
+            { question: "Empresa peruana que inyectó capital", answer: "INCAKOLA" },
+            { question: "Año de fundación del sindicato SINTRAPOSTOCOLA", answer: "1988" },
+            { question: "Participación de mercado", answer: "Casi el 40%" },
+            { question: "Número de empleados a nivel nacional", answer: "Más de 4500" },
+            { question: "Años de los premios de calidad", answer: "2012 y 2022" }
+        ];
+
+        let factsToMatch = [];
+        let answersToMatch = [];
+        let draggedFact = null;
+
+        // Función de utilidad para mezclar arrays (Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        // ELIMINADO: updateTimer() ya no es necesario
+        
+        // Iniciar el juego (Llamado después de la autenticación)
+        function startGame() {
+            if (gameActive) return; // Prevenir múltiples inicios
+            
+            gameActive = true;
+            factsMatched = 0;
+            // ELIMINADO: startTime = Date.now();
+            // ELIMINADO: timerInterval = setInterval(updateTimer, 1000);
+            
+            // Clonar y mezclar los datos para preguntas y respuestas
+            factsToMatch = trivia.map(item => ({ question: item.question, answer: item.answer }));
+            answersToMatch = trivia.map(item => ({ question: item.question, answer: item.answer }));
+            
+            shuffleArray(factsToMatch);
+            shuffleArray(answersToMatch);
+            
+            renderCards();
+        }
+
+        // Renderizar las tarjetas
+        function renderCards() {
+            factsContainer.innerHTML = '';
+            answersContainer.innerHTML = '';
+            
+            factsToMatch.forEach(fact => {
+                const factCard = document.createElement('div');
+                factCard.className = 'fact-card';
+                factCard.textContent = fact.question;
+                factCard.draggable = true;
+                factCard.dataset.answer = fact.answer;
+                factCard.addEventListener('dragstart', handleDragStart);
+                factsContainer.appendChild(factCard);
+            });
+            
+            answersToMatch.forEach(answer => {
+                const answerCard = document.createElement('div');
+                answerCard.className = 'answer-card';
+                answerCard.textContent = answer.answer;
+                answerCard.dataset.question = answer.question;
+                answerCard.addEventListener('dragover', handleDragOver);
+                answerCard.addEventListener('drop', handleDrop);
+                answerCard.addEventListener('dragleave', handleDragLeave); // Añadido dragleave
+                answersContainer.appendChild(answerCard);
+            });
+        }
+        
+        // Manejo del Drag & Drop 
+        function handleDragStart(e) {
+            draggedFact = e.target;
+            // Transferir la respuesta correcta del 'fact' arrastrado 
+            e.dataTransfer.setData('text/plain', e.target.dataset.answer);
+            // Aplicar un estilo temporal para indicar que se está arrastrando 
+            setTimeout(() => e.target.classList.add('opacity-50'), 0);
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault(); // Necesario para permitir el drop 
+            e.target.classList.add('ring-4', 'ring-red-400');
+        }
+
+        function handleDragLeave(e) {
+            e.target.classList.remove('ring-4', 'ring-red-400');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.target.classList.remove('ring-4', 'ring-red-400');
+
+            // Asegurarse de que el target es la tarjeta, no el contenedor
+            const dropTarget = e.target.closest('.answer-card');
+            if (!dropTarget) return;
+
+            const droppedAnswer = dropTarget.textContent.trim();
+            const correctFactAnswer = e.dataTransfer.getData('text/plain').trim();
+            
+            // Remover la opacidad del elemento arrastrado 
+            if (draggedFact) {
+                draggedFact.classList.remove('opacity-50');
+            }
+
+            if (droppedAnswer === correctFactAnswer) {
+                infoBox.textContent = "¡Correcto! ¡Has hecho la pareja!";
+                
+                // Remover el fact y la answer del DOM 
+                if (draggedFact) {
+                    draggedFact.remove();
+                    draggedFact = null;
+                }
+                dropTarget.remove();
+                
+                factsMatched++;
+
+                // Actualizar los arrays internos para reflejar que se removieron 
+                factsToMatch = factsToMatch.filter(fact => fact.answer.trim() !== droppedAnswer);
+                answersToMatch = answersToMatch.filter(answer => answer.answer.trim() !== droppedAnswer);
+
+                if (factsMatched === trivia.length) {
+                    endGame();
+                }
+
+            } else {
+                infoBox.textContent = "Incorrecto. Intenta de nuevo.";
+            }
+        }
+
+        // Guardar la puntuación/finalización en Firestore 
+        async function saveScore() {
+            try {
+                if (!db || !userId) {
+                    console.error("Firebase no inicializado o usuario no autenticado.");
+                    const tempUserId = 'Anon_' + crypto.randomUUID(); 
+                    saveScoreInternal(tempUserId);
+                    return;
+                }
+                saveScoreInternal(userId);
+
+            } catch (e) {
+                console.error("Error al guardar el documento: ", e);
+            }
+        }
+        
+        async function saveScoreInternal(currentUserId) {
+            const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+            
+            // Registrar solo el evento de finalización y el timestamp
+            const scoreData = {
+                userId: currentUserId.substring(0, 12), // Mostrar solo los primeros 12 caracteres del UID 
+                completion: true, 
+                timestamp: new Date()
+            };
+            
+            await addDoc(leaderboardCollectionRef, scoreData);
+            saveScoreBtn.disabled = true;
+            saveScoreBtn.textContent = "Registro Guardado";
+            saveScoreBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            fetchLeaderboard();
+        }
+
+        // Cargar la Tabla de Clasificación de Firestore 
+        async function fetchLeaderboard() {
+            try {
+                if (!db || !isAuthReady) return;
+                
+                const leaderboardRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+                // No se usa orderBy en la query, se obtiene y se ordena en memoria.
+                const querySnapshot = await getDocs(leaderboardRef);
+
+                let scores = []; 
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.completion && data.timestamp) {
+                         // Convertir el Timestamp de Firestore a objeto Date para ordenar
+                        scores.push({
+                            userId: data.userId,
+                            timestamp: data.timestamp.toDate() 
+                        });
+                    }
+                });
+
+                // Ordenar en memoria por timestamp (Más reciente primero) 
+                scores.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()); 
+                scores = scores.slice(0, 10); // Mostrar solo los top 10 
+
+                leaderboardList.innerHTML = '';
+                scores.forEach((data, index) => {
+                    const date = data.timestamp;
+                    const timeString = date.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    const dateString = date.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit' });
+                    
+                    const li = document.createElement('li');
+                    li.className = 'leaderboard-item';
+                    li.innerHTML = `
+                        <span>${index + 1}. Usuario: ${data.userId}</span>
+                        <span>Finalizado el ${dateString} a las ${timeString}</span>
+                    `;
+                    leaderboardList.appendChild(li);
+                });
+            } catch (e) {
+                console.error("Error al cargar la tabla de clasificación: ", e);
+            }
+        }
+
+        // Finalizar el juego 
+        function endGame() {
+            gameActive = false;
+            // ELIMINADO: clearInterval(timerInterval);
+            
+            finalTime.textContent = `¡Felicidades, has completado el Reto de la Fábrica!`; 
+            endModal.classList.add('active');
+            
+            // Resetear el botón de guardar 
+            saveScoreBtn.disabled = false;
+            saveScoreBtn.textContent = "Registrar mi finalización";
+            saveScoreBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            fetchLeaderboard();
+        }
+
+        // Event Listeners 
+        saveScoreBtn.addEventListener('click', saveScore);
+
+        // Inicialización de Firebase y Autenticación 
+        window.addEventListener('load', function() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                    } else {
+                        try {
+                            if (initialAuthToken) {
+                                await signInWithCustomToken(auth, initialAuthToken);
+                            } else {
+                                await signInAnonymously(auth);
+                            }
+                            userId = auth.currentUser?.uid || crypto.randomUUID(); 
+                        } catch (error) {
+                            console.error("Error de autenticación de Firebase:", error);
+                            userId = crypto.randomUUID(); // Fallback ID 
+                        }
+                    }
+                    isAuthReady = true;
+                    // Iniciar el juego una vez que la autenticación esté lista 
+                    startGame();  
+                });
+            } catch (error) {
+                console.error("Fallo la inicialización de Firebase:", error);
+                // Si Firebase falla, iniciar el juego sin funcionalidad de guardar puntuación 
+                isAuthReady = true;
+                startGame();
+                saveScoreBtn.disabled = true;
+                saveScoreBtn.textContent = "Registro (Error de conexión)";
+            }
+        });
+
+    </script>
+</body>
+</html>
